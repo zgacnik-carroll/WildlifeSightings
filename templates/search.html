@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Sightings</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav>
+    <a href="/">Home</a>
+    <a href="/sightings/new">Log Sighting</a>
+    <a href="/sightings/search">Search</a>
+    <a href="/stats">Stats</a>
+</nav>
+
+<h1>🔍 Search Sightings</h1>
+
+<div class="search-bar">
+    <form action="/sightings/search" method="GET">
+        <input
+                type="text"
+                name="q"
+                placeholder="Search by animal or location..."
+                value="{{ .query }}"
+                autocomplete="off"
+        >
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{{ if .query }}
+{{ if .sightings }}
+<h2>Results for "{{ .query }}"</h2>
+{{ range .sightings }}
+<div class="sighting">
+    <h3>{{ .Animal }}</h3>
+    <p>📍 {{ .Location }}</p>
+    {{ if .Notes }}
+    <p>📝 {{ .Notes }}</p>
+    {{ end }}
+</div>
+{{ end }}
+{{ else }}
+<p class="empty">No sightings found for "{{ .query }}".</p>
+{{ end }}
+{{ else }}
+<p class="empty">Enter an animal name or location above to search.</p>
+{{ end }}
+
+<script src="/static/js/main.js" defer></script>
+</body>
+</html>

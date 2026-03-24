@@ -1,17 +1,24 @@
 package main
 
 import (
-	"net/http"
+	"Go-Web/db"
+	"Go-Web/handlers"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	db.Init()
+
 	r := gin.Default()
+	r.LoadHTMLGlob("templates/*")
+	r.Static("/static", "./static")
 
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello, World!")
-	})
+	r.GET("/", handlers.ListSightings)
+	r.GET("/sightings/new", handlers.NewSightingForm)
+	r.POST("/sightings", handlers.CreateSighting)
+	r.GET("/sightings/search", handlers.SearchSightings)
+	r.GET("/stats", handlers.GetStats)
 
-	r.Run(":8080") // listens on http://localhost:8080
+	r.Run(":8080")
 }
