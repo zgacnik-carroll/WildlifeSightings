@@ -8,27 +8,41 @@
 </head>
 <body>
 <nav>
-    <a href="/">Home</a>
-    <a href="/sightings/new">Log Sighting</a>
-    <a href="/sightings/search">Search</a>
-    <a href="/stats">Stats</a>
+    <a href="/" class="nav-brand">Wildlife Sightings</a>
+    <div class="nav-links">
+        <a href="/" class="active">Home</a>
+        <a href="/sightings/new">Log Sighting</a>
+        <a href="/sightings/search">Search</a>
+        <a href="/stats">Stats</a>
+    </div>
 </nav>
 
-<h1>🦌 Wildlife Sightings</h1>
+<div class="page-wrapper">
+    <div class="page-header">
+        <div>
+            <div class="page-title">Recent Sightings</div>
+            <div class="page-sub">{{ len .sightings }} sightings logged</div>
+        </div>
+        <a href="/sightings/new" class="btn">+ Log Sighting</a>
+    </div>
 
-{{ if .sightings }}
-{{ range .sightings }}
-<div class="sighting">
-    <h3>{{ .Animal }}</h3>
-    <p>📍 {{ .Location }}</p>
-    {{ if .Notes }}
-    <p>📝 {{ .Notes }}</p>
+    {{ if .sightings }}
+    {{ range .sightings }}
+    <div class="sighting">
+        <div>
+            <h3>{{ .Animal }}</h3>
+            <div class="location">{{ .Location }}</div>
+            {{ if .Notes }}
+            <div class="notes">{{ .Notes }}</div>
+            {{ end }}
+        </div>
+        <span class="gold-tag">{{ .Animal }}</span>
+    </div>
+    {{ end }}
+    {{ else }}
+    <p class="empty">No sightings yet. <a href="/sightings/new">Log the first one!</a></p>
     {{ end }}
 </div>
-{{ end }}
-{{ else }}
-<p class="empty">No sightings yet. <a href="/sightings/new">Log the first one!</a></p>
-{{ end }}
 
 <script src="/static/js/main.js" defer></script>
 </body>

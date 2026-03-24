@@ -5,100 +5,168 @@
 }
 
 body {
-    font-family: Georgia, serif;
-    background-color: #f4f1eb;
-    color: #2c2c2c;
-    max-width: 860px;
-    margin: 40px auto;
-    padding: 0 20px;
+    font-family: sans-serif;
+    background-color: #0a0d14;
+    color: #e8e8e8;
+    min-height: 100vh;
 }
 
 nav {
+    background-color: #0d1220;
+    border-bottom: 1px solid #1e2a40;
     display: flex;
-    gap: 20px;
-    margin-bottom: 32px;
-    border-bottom: 2px solid #2d6a2d;
-    padding-bottom: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-nav a {
+.nav-brand {
+    color: #c9973a;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     text-decoration: none;
-    color: #2d6a2d;
-    font-weight: bold;
-    font-family: sans-serif;
-    font-size: 0.95rem;
 }
 
-nav a:hover {
-    text-decoration: underline;
+.nav-links {
+    display: flex;
+    gap: 28px;
 }
 
-h1 {
-    color: #2d6a2d;
-    margin-bottom: 24px;
-    font-size: 2rem;
+.nav-links a {
+    color: #8a9ab8;
+    font-size: 13px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    padding-bottom: 4px;
 }
 
-h2 {
-    color: #2d6a2d;
-    margin-bottom: 16px;
+.nav-links a:hover,
+.nav-links a.active {
+    color: #c9973a;
+    border-bottom: 2px solid #c9973a;
+}
+
+.page-wrapper {
+    padding: 40px 32px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: #e8e8e8;
+    margin-bottom: 4px;
+}
+
+.page-sub {
+    font-size: 13px;
+    color: #5a6a85;
 }
 
 /* Sighting cards */
 .sighting {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin: 12px 0;
+    background: #0d1220;
+    border: 1px solid #1e2a40;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .sighting h3 {
-    font-size: 1.2rem;
+    font-size: 15px;
+    font-weight: 500;
+    color: #e8e8e8;
     margin-bottom: 6px;
 }
 
-.sighting p {
-    color: #555;
-    margin: 4px 0;
-    font-size: 0.95rem;
+.sighting .location {
+    font-size: 12px;
+    color: #5a6a85;
+    margin-bottom: 4px;
+}
+
+.sighting .notes {
+    font-size: 12px;
+    color: #7a8aaa;
+}
+
+.gold-tag {
+    background: #2a1f0a;
+    color: #c9973a;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid #3d2e10;
+    white-space: nowrap;
 }
 
 .empty {
-    color: #888;
+    color: #5a6a85;
+    font-size: 14px;
     font-style: italic;
 }
 
 .empty a {
-    color: #2d6a2d;
+    color: #c9973a;
+    text-decoration: none;
 }
 
 /* Forms */
-form {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 24px;
-    max-width: 500px;
+.form-card {
+    background: #0d1220;
+    border: 1px solid #1e2a40;
+    border-radius: 10px;
+    padding: 28px;
+    max-width: 540px;
 }
 
 label {
     display: block;
-    font-family: sans-serif;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 4px;
-    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #8a9ab8;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    margin-top: 20px;
+}
+
+label:first-of-type {
+    margin-top: 0;
 }
 
 input[type="text"],
 textarea {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
+    padding: 10px 14px;
+    background: #0a0d14;
+    border: 1px solid #1e2a40;
     border-radius: 6px;
-    font-size: 1rem;
-    font-family: Georgia, serif;
+    color: #e8e8e8;
+    font-size: 14px;
+    font-family: sans-serif;
+    outline: none;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #c9973a;
 }
 
 textarea {
@@ -106,69 +174,83 @@ textarea {
     resize: vertical;
 }
 
-button {
-    margin-top: 20px;
-    background-color: #2d6a2d;
-    color: white;
+/* Buttons */
+.btn {
+    background: #c9973a;
+    color: #0a0d14;
     border: none;
-    padding: 10px 24px;
+    padding: 10px 22px;
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
     font-family: sans-serif;
+    text-decoration: none;
+    display: inline-block;
 }
 
-button:hover {
-    background-color: #245224;
+.btn:hover {
+    background: #b8842d;
 }
 
 /* Search bar */
 .search-bar {
     display: flex;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .search-bar input {
     flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
+    padding: 10px 14px;
+    background: #0d1220;
+    border: 1px solid #1e2a40;
     border-radius: 6px;
-    font-size: 1rem;
+    color: #e8e8e8;
+    font-size: 14px;
+    outline: none;
 }
 
-.search-bar button {
-    margin-top: 0;
+.search-bar input:focus {
+    border-color: #c9973a;
 }
 
-/* Stats */
+/* Stats table */
 .stat-table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    border-radius: 8px;
+    background: #0d1220;
+    border-radius: 10px;
     overflow: hidden;
-    border: 1px solid #ddd;
+    border: 1px solid #1e2a40;
 }
 
-.stat-table th, .stat-table td {
+.stat-table th,
+.stat-table td {
     text-align: left;
-    padding: 12px 16px;
-    font-family: sans-serif;
-    font-size: 0.95rem;
+    padding: 12px 18px;
+    font-size: 13px;
 }
 
 .stat-table th {
-    background-color: #2d6a2d;
-    color: white;
+    background-color: #111827;
+    color: #c9973a;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 11px;
 }
 
-.stat-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+.stat-table tr:not(:last-child) td {
+    border-bottom: 1px solid #1e2a40;
+}
+
+.stat-table td {
+    color: #e8e8e8;
 }
 
 .total {
     margin-top: 16px;
-    font-family: sans-serif;
-    color: #555;
+    font-size: 13px;
+    color: #5a6a85;
 }
