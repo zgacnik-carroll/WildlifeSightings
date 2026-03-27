@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wildlife Sightings</title>
+    <title>My Profile</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 <nav>
     <a href="/" class="nav-brand">Wildlife Sightings</a>
     <div class="nav-links">
-        <a href="/" class="active">Home</a>
+        <a href="/">Home</a>
         <a href="/sightings/new">Log Sighting</a>
         <a href="/sightings/search">Search</a>
         <a href="/stats">Stats</a>
-        <a href="/profile">{{ .username }}</a>
+        <a href="/profile" class="active">{{ .username }}</a>
         <form action="/logout" method="POST" style="display:inline;">
             <button type="submit" class="nav-logout">Logout</button>
         </form>
@@ -24,7 +24,7 @@
 <div class="page-wrapper">
     <div class="page-header">
         <div>
-            <div class="page-title">Recent Sightings</div>
+            <div class="page-title">{{ .username }}'s Sightings</div>
             <div class="page-sub">{{ len .sightings }} sightings logged</div>
         </div>
         <a href="/sightings/new" class="btn">+ Log Sighting</a>
@@ -39,13 +39,18 @@
             {{ if .Notes }}
             <div class="notes">{{ .Notes }}</div>
             {{ end }}
-            <div class="sighting-author">Logged by {{ .User.Username }}</div>
         </div>
-        <span class="gold-tag">{{ .Animal }}</span>
+        <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <span class="gold-tag">{{ .Animal }}</span>
+            <a href="/sightings/{{ .ID }}/edit" class="btn-small">Edit</a>
+            <form action="/sightings/{{ .ID }}/delete" method="POST">
+                <button type="submit" class="btn-danger">Delete</button>
+            </form>
+        </div>
     </div>
     {{ end }}
     {{ else }}
-    <p class="empty">No sightings yet. <a href="/sightings/new">Log the first one!</a></p>
+    <p class="empty">You haven't logged any sightings yet. <a href="/sightings/new">Log the first one!</a></p>
     {{ end }}
 </div>
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Sighting</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">Wildlife Sightings</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/sightings/new">Log Sighting</a>
+    <a href="/sightings/search">Search</a>
+    <a href="/stats">Stats</a>
+    <a href="/profile">{{ .username }}</a>
+    <form action="/logout" method="POST" style="display:inline;">
+      <button type="submit" class="nav-logout">Logout</button>
+    </form>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Edit Sighting</div>
+      <div class="page-sub">Update your wildlife observation</div>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <form id="new-sighting-form" action="/sightings/{{ .sighting.ID }}/edit" method="POST">
+      <label for="animal">Animal</label>
+      <input
+              type="text"
+              id="animal"
+              name="animal"
+              value="{{ .sighting.Animal }}"
+              autocomplete="off"
+      >
+
+      <label for="location">Location</label>
+      <input
+              type="text"
+              id="location"
+              name="location"
+              value="{{ .sighting.Location }}"
+              autocomplete="off"
+      >
+
+      <label for="notes">Notes</label>
+      <textarea
+              id="notes"
+              name="notes"
+      >{{ .sighting.Notes }}</textarea>
+
+      <br><br>
+      <button type="submit" class="btn">Save Changes</button>
+      <a href="/profile" class="btn-small" style="margin-left:12px;">Cancel</a>
+    </form>
+  </div>
+</div>
+
+<script src="/static/js/main.js" defer></script>
+</body>
+</html>

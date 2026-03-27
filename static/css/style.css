@@ -9,6 +9,8 @@ body {
     background-color: #0a0d14;
     color: #e8e8e8;
     min-height: 100vh;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
 nav {
@@ -17,8 +19,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 32px;
-    height: 56px;
+    padding: 0 48px;
+    height: 72px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -26,23 +28,24 @@ nav {
 
 .nav-brand {
     color: #c9973a;
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 600;
     letter-spacing: 0.04em;
     text-decoration: none;
 }
 
 .nav-links {
     display: flex;
-    gap: 28px;
+    align-items: center;
+    gap: 32px;
 }
 
 .nav-links a {
     color: #8a9ab8;
-    font-size: 13px;
+    font-size: 1rem;
     text-decoration: none;
     letter-spacing: 0.03em;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
 }
 
 .nav-links a:hover,
@@ -52,27 +55,29 @@ nav {
 }
 
 .page-wrapper {
-    padding: 40px 32px;
-    max-width: 1200px;
+    padding: 64px 32px 80px;
+    max-width: 1280px;
     width: 100%;
+    margin: 0 auto;
 }
 
 .page-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 28px;
+    gap: 24px;
+    margin-bottom: 36px;
 }
 
 .page-title {
-    font-size: 22px;
-    font-weight: 500;
+    font-size: 2.3rem;
+    font-weight: 600;
     color: #e8e8e8;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .page-sub {
-    font-size: 13px;
+    font-size: 1.05rem;
     color: #5a6a85;
 }
 
@@ -80,45 +85,45 @@ nav {
 .sighting {
     background: #0d1220;
     border: 1px solid #1e2a40;
-    border-radius: 10px;
-    padding: 18px 22px;
-    margin-bottom: 14px;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
 .sighting h3 {
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 600;
     color: #e8e8e8;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .sighting .location {
-    font-size: 12px;
+    font-size: 0.95rem;
     color: #5a6a85;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .sighting .notes {
-    font-size: 12px;
+    font-size: 1rem;
     color: #7a8aaa;
 }
 
 .gold-tag {
     background: #2a1f0a;
     color: #c9973a;
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 4px;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 6px;
     border: 1px solid #3d2e10;
     white-space: nowrap;
 }
 
 .empty {
     color: #5a6a85;
-    font-size: 14px;
+    font-size: 1.05rem;
     font-style: italic;
 }
 
@@ -131,20 +136,22 @@ nav {
 .form-card {
     background: #0d1220;
     border: 1px solid #1e2a40;
-    border-radius: 10px;
-    padding: 28px;
-    max-width: 540px;
+    border-radius: 14px;
+    padding: 36px;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 label {
     display: block;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: #8a9ab8;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: 6px;
-    margin-top: 20px;
+    margin-bottom: 8px;
+    margin-top: 24px;
 }
 
 label:first-of-type {
@@ -152,25 +159,27 @@ label:first-of-type {
 }
 
 input[type="text"],
+input[type="password"],
 textarea {
     width: 100%;
-    padding: 10px 14px;
+    padding: 16px 18px;
     background: #0a0d14;
     border: 1px solid #1e2a40;
-    border-radius: 6px;
+    border-radius: 10px;
     color: #e8e8e8;
-    font-size: 14px;
+    font-size: 1rem;
     font-family: sans-serif;
     outline: none;
 }
 
 input[type="text"]:focus,
+input[type="password"]:focus,
 textarea:focus {
     border-color: #c9973a;
 }
 
 textarea {
-    height: 100px;
+    min-height: 150px;
     resize: vertical;
 }
 
@@ -179,10 +188,10 @@ textarea {
     background: #c9973a;
     color: #0a0d14;
     border: none;
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     font-family: sans-serif;
     text-decoration: none;
@@ -197,17 +206,18 @@ textarea {
 .search-bar {
     display: flex;
     gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
+    justify-content: center;
 }
 
 .search-bar input {
     flex: 1;
-    padding: 10px 14px;
+    padding: 16px 18px;
     background: #0d1220;
     border: 1px solid #1e2a40;
-    border-radius: 6px;
+    border-radius: 10px;
     color: #e8e8e8;
-    font-size: 14px;
+    font-size: 1rem;
     outline: none;
 }
 
@@ -220,7 +230,7 @@ textarea {
     width: 100%;
     border-collapse: collapse;
     background: #0d1220;
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: hidden;
     border: 1px solid #1e2a40;
 }
@@ -228,17 +238,17 @@ textarea {
 .stat-table th,
 .stat-table td {
     text-align: left;
-    padding: 12px 18px;
-    font-size: 13px;
+    padding: 18px 24px;
+    font-size: 1rem;
 }
 
 .stat-table th {
     background-color: #111827;
     color: #c9973a;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 0.8rem;
 }
 
 .stat-table tr:not(:last-child) td {
@@ -250,7 +260,124 @@ textarea {
 }
 
 .total {
-    margin-top: 16px;
-    font-size: 13px;
+    margin-top: 20px;
+    font-size: 1rem;
     color: #5a6a85;
+}
+
+/* Auth error box */
+.error-box {
+    background: #1a0d0d;
+    border: 1px solid #3d1010;
+    color: #e07070;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin: 0 auto 24px;
+    max-width: 720px;
+}
+
+/* Form footer link */
+.form-footer {
+    margin-top: 24px;
+    font-size: 1rem;
+    color: #5a6a85;
+    text-align: center;
+}
+
+.form-footer a {
+    color: #c9973a;
+    text-decoration: none;
+}
+
+/* Sighting author line */
+.sighting-author {
+    font-size: 0.9rem;
+    color: #3a4a65;
+    margin-top: 8px;
+}
+
+/* Nav logout button */
+.nav-logout {
+    background: none;
+    border: 1px solid #1e2a40;
+    color: #8a9ab8;
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+.nav-logout:hover {
+    border-color: #c9973a;
+    color: #c9973a;
+}
+
+/* Small and danger buttons */
+.btn-small {
+    background: none;
+    border: 1px solid #1e2a40;
+    color: #8a9ab8;
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.btn-small:hover {
+    border-color: #c9973a;
+    color: #c9973a;
+}
+
+.btn-danger {
+    background: none;
+    border: 1px solid #3d1010;
+    color: #e07070;
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+.btn-danger:hover {
+    background: #1a0d0d;
+}
+
+#login-form,
+#register-form,
+#new-sighting-form {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    nav {
+        height: auto;
+        padding: 20px 24px;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .page-wrapper {
+        padding: 40px 20px 56px;
+    }
+
+    .page-header,
+    .sighting {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-card {
+        padding: 28px 22px;
+    }
 }

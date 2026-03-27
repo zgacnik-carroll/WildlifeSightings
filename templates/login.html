@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav>
+    <a href="/" class="nav-brand">Wildlife Sightings</a>
+    <div class="nav-links">
+        <a href="/login" class="active">Login</a>
+        <a href="/register">Register</a>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <div>
+            <div class="page-title">Welcome back</div>
+            <div class="page-sub">Sign in to your account</div>
+        </div>
+    </div>
+
+    {{ if .error }}
+    <div class="error-box">{{ .error }}</div>
+    {{ end }}
+
+    <div class="form-card">
+        <form id="login-form" action="/login" method="POST">
+            <label for="username">Username</label>
+            <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Your username"
+                    autocomplete="off"
+            >
+
+            <label for="password">Password</label>
+            <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Your password"
+            >
+
+            <br><br>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+        <p class="form-footer">Don't have an account? <a href="/register">Register here</a></p>
+    </div>
+</div>
+
+<script src="/static/js/main.js" defer></script>
+</body>
+</html>
