@@ -30,7 +30,6 @@ func main() {
 		auth.GET("/sightings/new", handlers.NewSightingForm)
 		auth.POST("/sightings", handlers.CreateSighting)
 		auth.GET("/sightings/search", handlers.SearchSightings)
-		auth.GET("/stats", handlers.GetStats)
 		auth.GET("/profile", handlers.ShowProfile)
 		auth.GET("/sightings/:id/edit", handlers.ShowEditSighting)
 		auth.POST("/sightings/:id/edit", handlers.EditSighting)

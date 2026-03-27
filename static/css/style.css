@@ -81,6 +81,57 @@ nav {
     color: #5a6a85;
 }
 
+.auth-page-header {
+    justify-content: center;
+    text-align: center;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.summary-card {
+    background: #0d1220;
+    border: 1px solid #1e2a40;
+    border-radius: 14px;
+    padding: 32px;
+    text-align: center;
+}
+
+.summary-label {
+    color: #8a9ab8;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.summary-value {
+    color: #c9973a;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 18px 0 14px;
+}
+
+.summary-value-text {
+    font-size: 2.35rem;
+    line-height: 1.15;
+}
+
+.summary-copy {
+    color: #7a8aaa;
+    font-size: 1rem;
+    max-width: 28rem;
+    margin: 0 auto;
+}
+
+.section-block {
+    margin-top: 40px;
+}
+
 /* Sighting cards */
 .sighting {
     background: #0d1220;
@@ -375,6 +426,10 @@ textarea {
     .sighting {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
     }
 
     .form-card {

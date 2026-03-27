@@ -13,7 +13,6 @@
         <a href="/">Home</a>
         <a href="/sightings/new">Log Sighting</a>
         <a href="/sightings/search" class="active">Search</a>
-        <a href="/stats">Stats</a>
         <a href="/profile">{{ .username }}</a>
         <form action="/logout" method="POST" style="display:inline;">
             <button type="submit" class="nav-logout">Logout</button>
@@ -55,7 +54,6 @@
             {{ end }}
             <div class="sighting-author">Logged by {{ .User.Username }}</div>
         </div>
-        <span class="gold-tag">{{ .Animal }}</span>
     </div>
     {{ end }}
     {{ else }}

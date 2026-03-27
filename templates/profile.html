@@ -13,7 +13,6 @@
         <a href="/">Home</a>
         <a href="/sightings/new">Log Sighting</a>
         <a href="/sightings/search">Search</a>
-        <a href="/stats">Stats</a>
         <a href="/profile" class="active">{{ .username }}</a>
         <form action="/logout" method="POST" style="display:inline;">
             <button type="submit" class="nav-logout">Logout</button>
@@ -41,7 +40,6 @@
             {{ end }}
         </div>
         <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
-            <span class="gold-tag">{{ .Animal }}</span>
             <a href="/sightings/{{ .ID }}/edit" class="btn-small">Edit</a>
             <form action="/sightings/{{ .ID }}/delete" method="POST">
                 <button type="submit" class="btn-danger">Delete</button>

@@ -8,6 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type AnimalCount struct {
+	Animal string
+	Count  int
+}
+
 func getSessionUser(c *gin.Context) (uint, string) {
 	session, _ := middleware.Store.Get(c.Request, "session")
 	userID, _ := session.Values["userID"].(uint)
@@ -17,12 +22,30 @@ func getSessionUser(c *gin.Context) (uint, string) {
 
 func ListSightings(c *gin.Context) {
 	userID, username := getSessionUser(c)
-	var sightings []db.Sighting
-	db.DB.Preload("User").Order("created_at desc").Find(&sightings)
+	var totalUsers int64
+	var totalSightings int64
+	var counts []AnimalCount
+	var topAnimal AnimalCount
+
+	db.DB.Model(&db.User{}).Count(&totalUsers)
+	db.DB.Model(&db.Sighting{}).Count(&totalSightings)
+	db.DB.Model(&db.Sighting{}).
+		Select("animal, count(*) as count").
+		Group("animal").
+		Order("count desc").
+		Scan(&counts)
+
+	if len(counts) > 0 {
+		topAnimal = counts[0]
+	}
+
 	c.HTML(http.StatusOK, "index.html", gin.H{
-		"sightings": sightings,
-		"userID":    userID,
-		"username":  username,
+		"totalUsers":     totalUsers,
+		"totalSightings": totalSightings,
+		"counts":         counts,
+		"topAnimal":      topAnimal,
+		"userID":         userID,
+		"username":       username,
 	})
 }
 
@@ -58,30 +81,6 @@ func SearchSightings(c *gin.Context) {
 		"query":     query,
 		"userID":    userID,
 		"username":  username,
-	})
-}
-
-func GetStats(c *gin.Context) {
-	_, username := getSessionUser(c)
-	type AnimalCount struct {
-		Animal string
-		Count  int
-	}
-
-	var counts []AnimalCount
-	db.DB.Model(&db.Sighting{}).
-		Select("animal, count(*) as count").
-		Group("animal").
-		Order("count desc").
-		Scan(&counts)
-
-	var total int64
-	db.DB.Model(&db.Sighting{}).Count(&total)
-
-	c.HTML(http.StatusOK, "stats.html", gin.H{
-		"counts":   counts,
-		"total":    total,
-		"username": username,
 	})
 }
 

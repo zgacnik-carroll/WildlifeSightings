@@ -13,7 +13,6 @@
         <a href="/" class="active">Home</a>
         <a href="/sightings/new">Log Sighting</a>
         <a href="/sightings/search">Search</a>
-        <a href="/stats">Stats</a>
         <a href="/profile">{{ .username }}</a>
         <form action="/logout" method="POST" style="display:inline;">
             <button type="submit" class="nav-logout">Logout</button>
@@ -24,29 +23,61 @@
 <div class="page-wrapper">
     <div class="page-header">
         <div>
-            <div class="page-title">Recent Sightings</div>
-            <div class="page-sub">{{ len .sightings }} sightings logged</div>
+            <div class="page-title">Community Snapshot</div>
+            <div class="page-sub">Track how active the wildlife logging community has become</div>
         </div>
         <a href="/sightings/new" class="btn">+ Log Sighting</a>
     </div>
 
-    {{ if .sightings }}
-    {{ range .sightings }}
-    <div class="sighting">
-        <div>
-            <h3>{{ .Animal }}</h3>
-            <div class="location">{{ .Location }}</div>
-            {{ if .Notes }}
-            <div class="notes">{{ .Notes }}</div>
-            {{ end }}
-            <div class="sighting-author">Logged by {{ .User.Username }}</div>
+    <div class="summary-grid">
+        <div class="summary-card">
+            <div class="summary-label">Registered Users</div>
+            <div class="summary-value">{{ .totalUsers }}</div>
+            <div class="summary-copy">Accounts created across the application.</div>
         </div>
-        <span class="gold-tag">{{ .Animal }}</span>
+
+        <div class="summary-card">
+            <div class="summary-label">Total Sightings</div>
+            <div class="summary-value">{{ .totalSightings }}</div>
+            <div class="summary-copy">Wildlife reports submitted by everyone so far.</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-label">Most Reported Animal</div>
+            <div class="summary-value summary-value-text">{{ if .topAnimal.Animal }}{{ .topAnimal.Animal }}{{ else }}None Yet{{ end }}</div>
+            <div class="summary-copy">{{ if .topAnimal.Animal }}Reported {{ .topAnimal.Count }} times across all sightings.{{ else }}No sightings have been submitted yet.{{ end }}</div>
+        </div>
     </div>
-    {{ end }}
-    {{ else }}
-    <p class="empty">No sightings yet. <a href="/sightings/new">Log the first one!</a></p>
-    {{ end }}
+
+    <div class="section-block">
+        <div class="page-header">
+            <div>
+                <div class="page-title">Wildlife Breakdown</div>
+                <div class="page-sub">Sightings grouped by animal across the entire application</div>
+            </div>
+        </div>
+
+        {{ if .counts }}
+        <table class="stat-table">
+            <thead>
+            <tr>
+                <th>Animal</th>
+                <th>Sightings</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{ range .counts }}
+            <tr>
+                <td>{{ .Animal }}</td>
+                <td>{{ .Count }}</td>
+            </tr>
+            {{ end }}
+            </tbody>
+        </table>
+        {{ else }}
+        <p class="empty">No sightings logged yet. <a href="/sightings/new">Log the first one!</a></p>
+        {{ end }}
+    </div>
 </div>
 
 <script src="/static/js/main.js" defer></script>
