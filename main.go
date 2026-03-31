@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// main initializes the application, registers routes, and starts the HTTP server.
 func main() {
 	db.Init()
 

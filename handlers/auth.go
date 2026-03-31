@@ -10,10 +10,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// ShowRegister renders the registration form.
 func ShowRegister(c *gin.Context) {
 	c.HTML(http.StatusOK, "register.html", nil)
 }
 
+// Register validates the submitted credentials, creates the user record, and redirects to login.
 func Register(c *gin.Context) {
 	username := strings.TrimSpace(c.PostForm("username"))
 	password := c.PostForm("password")
@@ -35,6 +37,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	// Hash the password before persisting it so plaintext credentials are never stored.
 	hashed, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "register.html", gin.H{
@@ -52,10 +55,12 @@ func Register(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/login")
 }
 
+// ShowLogin renders the login form.
 func ShowLogin(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.html", nil)
 }
 
+// Login authenticates the user and stores the session identifiers in the cookie-backed session.
 func Login(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
@@ -76,6 +81,7 @@ func Login(c *gin.Context) {
 	}
 
 	session, _ := middleware.Store.Get(c.Request, "session")
+	// Persist the user identity in the session so protected routes can authorize the request.
 	session.Values["userID"] = user.ID
 	session.Values["username"] = user.Username
 	session.Save(c.Request, c.Writer)
@@ -83,6 +89,7 @@ func Login(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/")
 }
 
+// Logout clears the current session and sends the user back to the login screen.
 func Logout(c *gin.Context) {
 	session, _ := middleware.Store.Get(c.Request, "session")
 	session.Options.MaxAge = -1

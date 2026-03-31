@@ -8,11 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// AnimalCount represents the number of sightings recorded for a given animal.
 type AnimalCount struct {
 	Animal string
 	Count  int
 }
 
+// getSessionUser returns the authenticated user's identifier and username from the session store.
 func getSessionUser(c *gin.Context) (uint, string) {
 	session, _ := middleware.Store.Get(c.Request, "session")
 	userID, _ := session.Values["userID"].(uint)
@@ -20,6 +22,7 @@ func getSessionUser(c *gin.Context) (uint, string) {
 	return userID, username
 }
 
+// ListSightings renders the dashboard with aggregate statistics for the entire application.
 func ListSightings(c *gin.Context) {
 	userID, username := getSessionUser(c)
 	var totalUsers int64
@@ -29,6 +32,7 @@ func ListSightings(c *gin.Context) {
 
 	db.DB.Model(&db.User{}).Count(&totalUsers)
 	db.DB.Model(&db.Sighting{}).Count(&totalSightings)
+	// Build the per-animal summary shown in the dashboard table.
 	db.DB.Model(&db.Sighting{}).
 		Select("animal, count(*) as count").
 		Group("animal").
@@ -49,6 +53,7 @@ func ListSightings(c *gin.Context) {
 	})
 }
 
+// NewSightingForm renders the form used to submit a new wildlife sighting.
 func NewSightingForm(c *gin.Context) {
 	_, username := getSessionUser(c)
 	c.HTML(http.StatusOK, "new.html", gin.H{
@@ -56,6 +61,7 @@ func NewSightingForm(c *gin.Context) {
 	})
 }
 
+// CreateSighting stores a new sighting for the authenticated user and returns to the dashboard.
 func CreateSighting(c *gin.Context) {
 	userID, _ := getSessionUser(c)
 	sighting := db.Sighting{
@@ -68,6 +74,7 @@ func CreateSighting(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/")
 }
 
+// SearchSightings runs a simple animal/location search and renders the matching records.
 func SearchSightings(c *gin.Context) {
 	userID, username := getSessionUser(c)
 	query := c.Query("q")
@@ -84,6 +91,7 @@ func SearchSightings(c *gin.Context) {
 	})
 }
 
+// ShowProfile renders the signed-in user's personal sightings history.
 func ShowProfile(c *gin.Context) {
 	userID, username := getSessionUser(c)
 	var sightings []db.Sighting
@@ -95,6 +103,7 @@ func ShowProfile(c *gin.Context) {
 	})
 }
 
+// DeleteSighting removes a sighting after verifying that it belongs to the current user.
 func DeleteSighting(c *gin.Context) {
 	userID, _ := getSessionUser(c)
 	id := c.Param("id")
@@ -103,6 +112,7 @@ func DeleteSighting(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/")
 		return
 	}
+	// Enforce ownership so users cannot delete another user's records.
 	if sighting.UserID != userID {
 		c.Redirect(http.StatusFound, "/")
 		return
@@ -111,6 +121,7 @@ func DeleteSighting(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/profile")
 }
 
+// ShowEditSighting loads an existing sighting into the edit form for its owner.
 func ShowEditSighting(c *gin.Context) {
 	userID, username := getSessionUser(c)
 	id := c.Param("id")
@@ -119,6 +130,7 @@ func ShowEditSighting(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/")
 		return
 	}
+	// Enforce ownership so users can only edit their own sightings.
 	if sighting.UserID != userID {
 		c.Redirect(http.StatusFound, "/")
 		return
@@ -129,6 +141,7 @@ func ShowEditSighting(c *gin.Context) {
 	})
 }
 
+// EditSighting updates a sighting after confirming the current user owns the record.
 func EditSighting(c *gin.Context) {
 	userID, _ := getSessionUser(c)
 	id := c.Param("id")
@@ -137,6 +150,7 @@ func EditSighting(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/")
 		return
 	}
+	// Enforce ownership so users cannot overwrite another user's sightings.
 	if sighting.UserID != userID {
 		c.Redirect(http.StatusFound, "/")
 		return

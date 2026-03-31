@@ -7,8 +7,10 @@ import (
 	"gorm.io/gorm"
 )
 
+// DB exposes the shared GORM connection used throughout the application.
 var DB *gorm.DB
 
+// User stores account credentials and audit metadata for a registered user.
 type User struct {
 	ID        uint   `gorm:"primaryKey"`
 	Username  string `gorm:"uniqueIndex;not null"`
@@ -16,6 +18,7 @@ type User struct {
 	CreatedAt int64  `gorm:"autoCreateTime"`
 }
 
+// Sighting records a wildlife report submitted by a specific user.
 type Sighting struct {
 	ID        uint   `gorm:"primaryKey"`
 	Animal    string `gorm:"not null"`
@@ -26,6 +29,7 @@ type Sighting struct {
 	CreatedAt int64 `gorm:"autoCreateTime"`
 }
 
+// Init opens the SQLite database, applies schema migrations, and runs cleanup for legacy columns.
 func Init() {
 	var err error
 	DB, err = gorm.Open(sqlite.Open("wildlife.db"), &gorm.Config{})
@@ -41,6 +45,7 @@ func Init() {
 	dropLegacyEmailColumn()
 }
 
+// dropLegacyEmailColumn removes the deprecated email column from older user tables when present.
 func dropLegacyEmailColumn() {
 	if !DB.Migrator().HasTable("users") {
 		return
@@ -50,12 +55,14 @@ func dropLegacyEmailColumn() {
 		return
 	}
 
+	// Remove the old supporting index before attempting to drop the column.
 	if DB.Migrator().HasIndex("users", "idx_users_email") {
 		if err := DB.Migrator().DropIndex("users", "idx_users_email"); err != nil {
 			log.Fatal("Failed to drop email index:", err)
 		}
 	}
 
+	// Keep the schema aligned with the current User model.
 	if err := DB.Exec("ALTER TABLE users DROP COLUMN email").Error; err != nil {
 		log.Fatal("Failed to drop legacy email column:", err)
 	}
